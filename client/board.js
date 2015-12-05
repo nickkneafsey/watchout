@@ -18,7 +18,7 @@ Board.prototype.setX = function(x) {
   var xMax = this.gameOptions.width - this.gameOptions.padding;
   if (x <= xMin) {
     x = xMin;
-  } else if (x >= xMax) {
+  } else if (x >  xMax) {
     x = xMax;
   }
   this.x = x;
