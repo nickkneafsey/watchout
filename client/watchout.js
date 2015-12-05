@@ -32,3 +32,4 @@ var updateBestScore = function() {
   gameStats.bestScore = _.max([gameStats.bestScore, gameStats.score]);
 };
 
+//Add an id for D3
