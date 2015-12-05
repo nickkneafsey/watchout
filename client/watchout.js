@@ -49,6 +49,12 @@ var pointMaker = function(n) {
   return array;
 };
 
+var player = canvas.append('circle')
+                .attr('cx', 250)
+                .attr('cy', 250)
+                .attr('r', 15)
+                .attr('fill', 'blue')
+
 var dataArray = pointMaker(5);
 for (var i =0; i<dataArray.length; i++){
   var circle = canvas.append('circle')
@@ -57,6 +63,17 @@ for (var i =0; i<dataArray.length; i++){
                 .attr('r', 30)
                 .attr('fill', 'red')
 }
+setInterval(function () {
+var arr = pointMaker(5);
+d3.select('svg').selectAll('circle').data(arr)
+      .transition()
+      .duration(1000)
+      .attr({
+        cx: function (d) { return d.x},
+        cy: function (d) { return d.y},
+      });
+    }, 1000);
+
 
 
 
