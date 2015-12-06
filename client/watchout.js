@@ -99,7 +99,7 @@ var drag = d3.behavior.drag()
           });
 
 var collisionCheck = function(enemyX, enemyY) {
-  var threshold = 20;
+  var threshold = 40;
   
   
     var distance = Math.sqrt ( Math.pow((player.attr('x') - enemyX), 2) + Math.pow((player.attr('y') - enemyY), 2) ); 
