@@ -1,20 +1,17 @@
 var svg = d3.select('body').append('svg');
 
-//var enemies = 10;
+
 var enemies = localStorage.getItem("enemies") || 10;
 
 d3.select('.easy').on("click", function() {
-  //enemies = 5;
   localStorage.setItem("enemies", 5);
 });
 
 d3.select('.medium').on("click", function() {
-  //enemies = 10;
   localStorage.setItem("enemies", 10);
 });
 
 d3.select('.hard').on("click", function() {
-  //enemies = 20;
   localStorage.setItem("enemies", 20);
 });
 
@@ -43,7 +40,7 @@ var positions = function() {
   });
 };
 
-var asteroids = svg.selectAll('image')
+var asteroids = svg.selectAll('image .asteroid')
   .data(positions())
   .enter()
   .append('image')
@@ -83,11 +80,11 @@ var tracker = function() {
 
 var bounceCheck = function(test, bound) {
   // body...
-  if( test > bound - 30) {
-    test = bound - 30;
+  if( test > bound - 50) {
+    test = bound - 50;
   }
-  if (test < 30) {
-    test = 30;
+  if (test < 5) {
+    test = 5;
   }
   return test;
 }
@@ -97,15 +94,15 @@ var drag = d3.behavior.drag()
 .on('drag', function(){
         var dragX = bounceCheck(d3.event.x, width)
         var dragY = bounceCheck(d3.event.y, height)
-            player.attr("cx", dragX)
-                  .attr("cy", dragY);
+            player.attr("x", dragX)
+                  .attr("y", dragY);
           });
 
 var collisionCheck = function(enemyX, enemyY) {
   var threshold = 20;
   
   
-    var distance = Math.sqrt ( Math.pow((player.attr('cx') - enemyX), 2) + Math.pow((player.attr('cy') - enemyY), 2) ); 
+    var distance = Math.sqrt ( Math.pow((player.attr('x') - enemyX), 2) + Math.pow((player.attr('y') - enemyY), 2) ); 
     
     if(distance < threshold) {
       onCollision()
@@ -137,19 +134,18 @@ var updateBestScore = function() {
 };
 
 var updateScore = function() {
-  //collisions++;
   d3.select('.current span').text(score);
 };
 
 
-var player = svg.append('circle')
+var player = svg.append('image')
   .data([{x: 300, y:250}])
+  .attr('xlink:href', 'astronaut.gif')
   .attr('class', 'player')
-  .attr('fill', 'blue')
-  .attr('r', 10)
-  .attr('cx', function(d) { return d.x; })
-  .attr('cy', function(d) { return d.y; })
+  .attr('x', function(d) { return d.x; })
+  .attr('y', function(d) { return d.y; })
+  .attr('width', 60)
+  .attr('height', 60)
   .call(drag);
-
 
 setInterval(move, 1000);
