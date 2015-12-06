@@ -1,23 +1,23 @@
 var svg = d3.select('body').append('svg');
 
-
-
-var enemies = 10;
+//var enemies = 10;
+var enemies = localStorage.getItem("enemies") || 10;
 
 d3.select('.easy').on("click", function() {
-  enemies = 5;
-  console.log(enemies);
+  //enemies = 5;
+  localStorage.setItem("enemies", 5);
 });
 
 d3.select('.medium').on("click", function() {
-  enemies = 10;
-  console.log(enemies);
+  //enemies = 10;
+  localStorage.setItem("enemies", 10);
 });
 
 d3.select('.hard').on("click", function() {
-  enemies = 20;
-  console.log(enemies);
+  //enemies = 20;
+  localStorage.setItem("enemies", 20);
 });
+
 
 var array = [];
 var score = 0;
@@ -43,10 +43,8 @@ var positions = function() {
   });
 };
 
-var enemy = positions();
-
 var asteroids = svg.selectAll('image')
-  .data(enemy)
+  .data(positions())
   .enter()
   .append('image')
   .attr('xlink:href', 'asteroid.png')
